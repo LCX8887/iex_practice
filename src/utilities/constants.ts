@@ -1,2 +1,2 @@
-export const BASE_URL = 'https://cloud.iexapis.com/';
-export const TOKEN = 'pk_861d0d817c5c478ea6367d772ab299c9';
+export const BASE_URL = "https://cloud.iexapis.com";
+export const TOKEN = "sk_75e757942e044e33aba43cbb07ba8e13";

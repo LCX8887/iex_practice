@@ -1,11 +1,17 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { State } from 'src/types';
+import * as React from "react";
+import { connect } from "react-redux";
+import { fetchSectorPerformance } from "../flow/actions";
+import { State } from "src/types";
 
-export interface SectorPerformanceProps {}
+export interface SectorPerformanceProps {
+  fetchSectorPerformance: any;
+  sectorPerformance: Array<{
+    sector: string;
+    changesPercentage: string;
+  }>;
+}
 
 export interface SectorPerformanceState {}
-
 export class SectorPerformance extends React.Component<
   SectorPerformanceProps,
   SectorPerformanceState
@@ -14,15 +20,33 @@ export class SectorPerformance extends React.Component<
     super(props);
     this.state = {};
   }
-
+  componentDidMount = () => {
+    this.props.fetchSectorPerformance();
+  };
   render() {
-    return <div />;
+    const { sectorPerformance } = this.props;
+    return (
+      <div>
+        <p>SectorPerformance</p>
+        {sectorPerformance.map(item => {
+          return (
+            <div key={item.sector}>
+              <p>{item.sector}</p>
+              <p>{item.changesPercentage}</p>
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 }
+const mapStateToProps = (state: State) => ({
+  sectorPerformance: state.SectorPerformanceReducer.sectorPerformance
+});
 
-const mapStateToProps = (state: State) => ({});
-
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  fetchSectorPerformance
+};
 
 export const ConnectedSectorPerformance = connect(
   mapStateToProps,
