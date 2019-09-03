@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { fetchSymbols } from 'src/components/SearchBar/flow/actions';
-import { State } from 'src/types';
+import * as React from "react";
+import { connect } from "react-redux";
+import { fetchSymbols } from "src/components/SearchBar/flow/actions";
+import { State } from "src/types";
 
-import { List } from 'antd';
+import { List } from "antd";
 
 export interface SearchBarProps {
   fetchSymbols: () => Promise<any>;
@@ -26,8 +26,8 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   constructor(props: SearchBarProps) {
     super(props);
     this.state = {
-      searchText: '',
-      hideList: true,
+      searchText: "",
+      hideList: true
     };
   }
   componentDidMount = () => {
@@ -36,7 +36,7 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
   handleInputChange = (e: any) => {
     const { value } = e.target;
-    value === ''
+    value === ""
       ? this.setState(() => ({ hideList: true }))
       : this.setState(() => ({ hideList: false }));
     this.setState(() => ({ searchText: value }));
@@ -47,16 +47,16 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     const { searchText, hideList } = this.state;
 
     return (
-      <div>
+      <div className="search_bar">
         <input value={searchText} onChange={this.handleInputChange} />
         <List
-          className={hideList ? 'hide' : ''}
+          className={hideList ? "hide" : ""}
           size="small"
           bordered
           dataSource={symbols.filter(
-            (symbol) => symbol.name.indexOf(searchText) > -1
+            symbol => symbol.name.indexOf(searchText) > -1
           )}
-          renderItem={(symbol) => (
+          renderItem={symbol => (
             <List.Item key={symbol.symbol}>
               {symbol.symbol}-{symbol.name}
             </List.Item>
@@ -67,11 +67,11 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   }
 }
 const mapStateToProps = (state: State) => ({
-  symbols: state.SearchBarReducer.symbols,
+  symbols: state.SearchBarReducer.symbols
 });
 
 const mapDispatchToProps = {
-  fetchSymbols,
+  fetchSymbols
 };
 
 export const ConnectedSearchBar = connect(

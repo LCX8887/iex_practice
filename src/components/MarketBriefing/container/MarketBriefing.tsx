@@ -1,19 +1,20 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { fetchMostActive } from '../flow/actions';
-import { State } from 'src/types';
+import * as React from "react";
+import { connect } from "react-redux";
+import { fetchMostActive } from "../flow/actions";
+import { State } from "src/types";
 
 export interface MarketBriefingProps {
   fetchMostActive: any;
-  mostActive: Array<{
-    symbol: string;
+  mostActiveStock: Array<{
+    ticker: string;
+    changes: string;
+    price: string;
+    changesPercentage: string;
     companyName: string;
-    open: number;
-    close: number;
-    changePercent: number;
   }>;
 }
 export interface MarketBriefingState {}
+
 export class MarketBriefing extends React.Component<
   MarketBriefingProps,
   MarketBriefingState
@@ -25,22 +26,26 @@ export class MarketBriefing extends React.Component<
   componentDidMount() {
     this.props.fetchMostActive();
   }
+  static defaultProps = {
+    mostActiveStock: []
+  };
   render() {
-    const { mostActive } = this.props;
+    const { mostActiveStock } = this.props;
     return (
-      <div>
-        <p>mostActive</p>
-        {mostActive.map((item) => {
-          const changePercent = (item.changePercent * 100).toFixed(2) + '%';
+      <div className="market_briefing">
+        <div className="section-title">
+          <p>mostActive</p>
+        </div>
+        {mostActiveStock.map(item => {
           return (
-            <div key={item.symbol}>
+            <div key={item.ticker}>
               <div>
-                <p>{item.symbol}</p>
+                <p>{item.ticker}</p>
                 <p>{item.companyName}</p>
               </div>
               <div>
-                <p>{item.close}</p>
-                <p>{changePercent}</p>
+                <p>{item.price}</p>
+                <p>{item.changesPercentage}</p>
               </div>
             </div>
           );
@@ -50,13 +55,16 @@ export class MarketBriefing extends React.Component<
   }
 }
 const mapStateToProps = (state: State) => ({
-  mostActive: state.MarketBriefingReducer.mostActive,
+  mostActiveStock: state.MarketBriefingReducer.mostActive.mostActiveStock
 });
 
 const mapDispatchToProps = {
-  fetchMostActive,
+  fetchMostActive
 };
 
+// MarketBriefing.defaultProps = {
+//   mostActiveStock: []
+// };
 export const ConnectedMarketBriefing = connect(
   mapStateToProps,
   mapDispatchToProps

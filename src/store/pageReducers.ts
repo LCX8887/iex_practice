@@ -2,10 +2,14 @@ import SearchBarReducer from "../components/SearchBar/flow/reducer";
 import MarketBriefingReducer from "../components/MarketBriefing/flow/reducer";
 import MarketEarningsReducer from "../components/MarketEarnings/flow/reducer";
 import SectorPerformanceReducer from "../components/SectorPerformance/flow/reducer";
+import ListsReducer from "../components/Lists/flow/reducer";
+import MajorIndexReducer from "../components/MajorIndex/flow/reducer";
 
 export default {
   SearchBarReducer,
   MarketBriefingReducer,
   MarketEarningsReducer,
-  SectorPerformanceReducer
+  SectorPerformanceReducer,
+  ListsReducer,
+  MajorIndexReducer
 };

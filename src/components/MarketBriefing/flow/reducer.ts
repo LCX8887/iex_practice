@@ -1,11 +1,11 @@
 import {
   RECEIVE_MARKET_BRIEFING,
-  REQUEST_MARKET_BRIEFING,
-} from './actionTypes';
-import { Action } from 'src/types';
+  REQUEST_MARKET_BRIEFING
+} from "./actionTypes";
+import { Action } from "src/types";
 const initialState = {
-  mostActive: [],
-  isFetching: false,
+  mostActive: {},
+  isFetching: false
 };
 
 const MarketBriefingReducer = (state = initialState, action: Action) => {
@@ -13,13 +13,13 @@ const MarketBriefingReducer = (state = initialState, action: Action) => {
     case REQUEST_MARKET_BRIEFING:
       return {
         ...state,
-        isFetching: true,
+        isFetching: true
       };
     case RECEIVE_MARKET_BRIEFING:
       return {
         ...state,
         isFetching: false,
-        mostActive: action.payload,
+        mostActive: action.payload
       };
     default:
       return state;

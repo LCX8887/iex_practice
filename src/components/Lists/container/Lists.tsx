@@ -1,39 +1,77 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { fetchLists } from "../flow/actions";
+import { Table } from "antd";
+import {
+  fetchGainers,
+  fetchLosers,
+  fetchIEXVolume,
+  fetchIEXPercent
+} from "../flow/actions";
 import { State } from "src/types";
 
 export interface ListsProps {
-  fetchLists: any;
+  fetchGainers: any;
+  fetchLosers: any;
+  fetchIEXVolume: any;
+  fetchIEXPercent: any;
   gainers: Array<{}>;
   losers: Array<{}>;
-  iexvolume: Array<{}>;
-  iexpercent: Array<{}>;
+  iexVolume: Array<{}>;
+  iexPercent: Array<{}>;
 }
 export interface ListsState {}
+const columns = [
+  {
+    title: "Symbol",
+    dataIndex: "symbol",
+    key: "symbol"
+  },
+  {
+    title: "Company Name",
+    dataIndex: "companyName",
+    key: "companyName"
+  },
+  {
+    title: "Volume",
+    dataIndex: "volume",
+    key: "volume"
+  },
+  {
+    title: "Price",
+    dataIndex: "latestPrice",
+    key: "latestPrice"
+  }
+];
 export class Lists extends React.Component<ListsProps, ListsState> {
   constructor(props: ListsProps) {
     super(props);
     this.state = {};
   }
   componentDidMount() {
-    this.props.fetchLists("all");
+    this.props.fetchGainers();
+    this.props.fetchLosers();
+    this.props.fetchIEXVolume();
+    this.props.fetchIEXPercent();
   }
   render() {
-    const { gainers, losers, iexvolume, iexpercent } = this.props;
+    const { gainers, losers, iexVolume, iexPercent } = this.props;
     return (
       <div>
         <div>
           <p>Gainers</p>
+          <Table columns={columns} dataSource={gainers} />
         </div>
         <div>
           <p>Loses</p>
+          <Table columns={columns} dataSource={losers} />
         </div>
         <div>
           <p>IEXVolume</p>
+          <Table columns={columns} dataSource={iexVolume} />
         </div>
         <div>
           <p>IEXPercent</p>
+          <Table columns={columns} dataSource={iexPercent} />
         </div>
       </div>
     );
@@ -42,12 +80,15 @@ export class Lists extends React.Component<ListsProps, ListsState> {
 const mapStateToProps = (state: State) => ({
   gainers: state.ListsReducer.gainers,
   losers: state.ListsReducer.losers,
-  iexvolume: state.ListsReducer.iexvolume,
-  iexpercent: state.ListsReducer.iexpercent
+  iexVolume: state.ListsReducer.iexVolume,
+  iexPercent: state.ListsReducer.iexPercent
 });
 
 const mapDispatchToProps = {
-  fetchLists
+  fetchGainers,
+  fetchLosers,
+  fetchIEXVolume,
+  fetchIEXPercent
 };
 
 export const ConnectedLists = connect(
