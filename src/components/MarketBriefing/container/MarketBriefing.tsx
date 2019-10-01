@@ -34,16 +34,16 @@ export class MarketBriefing extends React.Component<
     return (
       <div className="market_briefing">
         <div className="section-title">
-          <p>mostActive</p>
+          <p>Market Briefing</p>
         </div>
         {mostActiveStock.map(item => {
           return (
-            <div key={item.ticker}>
-              <div>
+            <div key={item.ticker} className="briefing-block">
+              <div className="briefing-name">
                 <p>{item.ticker}</p>
                 <p>{item.companyName}</p>
               </div>
-              <div>
+              <div className="briefing-performance">
                 <p>{item.price}</p>
                 <p>{item.changesPercentage}</p>
               </div>

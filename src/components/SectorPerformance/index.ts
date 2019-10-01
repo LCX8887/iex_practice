@@ -1,2 +1,3 @@
-import { ConnectedSectorPerformance } from './container/SectorPerformance';
+import { ConnectedSectorPerformance } from "./container/SectorPerformance";
+import "./index.css";
 export { ConnectedSectorPerformance };

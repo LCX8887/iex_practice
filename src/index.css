@@ -40,11 +40,7 @@
   font-weight: normal;
   font-style: normal;
 }
-.section-title {
-  font-family: "Poppins-SemiBold";
-  font-size: 4rem;
-  color: #000000;
-}
+
 html {
   font-size: 62.5%;
 }
@@ -55,4 +51,7 @@ body {
 }
 .hide {
   display: none;
+}
+.visible {
+  display: block;
 }

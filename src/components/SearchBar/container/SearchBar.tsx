@@ -6,14 +6,10 @@ import { State } from "src/types";
 import { List } from "antd";
 
 export interface SearchBarProps {
-  fetchSymbols: () => Promise<any>;
-  symbols: Array<{
-    name: string;
+  fetchSymbols: (value: string) => Promise<any>;
+  bestMatches: Array<{
     symbol: string;
-    date?: string;
-    isEnabled?: boolean;
-    type?: string;
-    iexId?: string;
+    name: string;
   }>;
 }
 
@@ -30,9 +26,9 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
       hideList: true
     };
   }
-  componentDidMount = () => {
-    this.props.fetchSymbols();
-  };
+  // componentDidMount = () => {
+  //   this.props.fetchSymbols();
+  // };
 
   handleInputChange = (e: any) => {
     const { value } = e.target;
@@ -40,16 +36,29 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
       ? this.setState(() => ({ hideList: true }))
       : this.setState(() => ({ hideList: false }));
     this.setState(() => ({ searchText: value }));
+    this.props.fetchSymbols(value);
   };
 
   render() {
-    const { symbols } = this.props;
+    const { bestMatches } = this.props;
     const { searchText, hideList } = this.state;
+    const listClassName = "search_bar_list";
 
     return (
       <div className="search_bar">
         <input value={searchText} onChange={this.handleInputChange} />
         <List
+          className={`${listClassName} ${hideList ? "hide" : "visible"}`}
+          size="small"
+          bordered
+          dataSource={bestMatches}
+          renderItem={item => (
+            <List.Item key={item["1. symbol"]}>
+              {item["1. symbol"]}-{item["2. name"]}
+            </List.Item>
+          )}
+        />
+        {/* <List
           className={hideList ? "hide" : ""}
           size="small"
           bordered
@@ -61,13 +70,13 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
               {symbol.symbol}-{symbol.name}
             </List.Item>
           )}
-        />
+        /> */}
       </div>
     );
   }
 }
 const mapStateToProps = (state: State) => ({
-  symbols: state.SearchBarReducer.symbols
+  bestMatches: state.SearchBarReducer.symbols.bestMatches
 });
 
 const mapDispatchToProps = {

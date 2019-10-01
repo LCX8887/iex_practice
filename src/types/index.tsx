@@ -4,7 +4,10 @@ export interface Action {
 }
 
 export interface State {
-  SearchBarReducer: { symbols: Array<{}>; isFetching: boolean };
+  SearchBarReducer: {
+    symbols: { bestMatches: Array<{}> };
+    isFetching: boolean;
+  };
   MarketBriefingReducer: {
     mostActive: { mostActiveStock: Array<{}> };
     isFetching: boolean;

@@ -1,8 +1,8 @@
-import { RECEIVE_SYMBOLS, REQUEST_SYMBOLS } from './actionTypes';
-import { Action } from 'src/types';
+import { RECEIVE_SYMBOLS, REQUEST_SYMBOLS } from "./actionTypes";
+import { Action } from "src/types";
 const initialState = {
-  symbols: [],
-  isFetching: false,
+  symbols: { bestMatches: [] },
+  isFetching: false
 };
 
 const SearchBarReducer = (state = initialState, action: Action) => {
@@ -10,13 +10,13 @@ const SearchBarReducer = (state = initialState, action: Action) => {
     case REQUEST_SYMBOLS:
       return {
         ...state,
-        isFetching: true,
+        isFetching: true
       };
     case RECEIVE_SYMBOLS:
       return {
         ...state,
         isFetching: false,
-        symbols: action.payload,
+        symbols: action.payload
       };
     default:
       return state;

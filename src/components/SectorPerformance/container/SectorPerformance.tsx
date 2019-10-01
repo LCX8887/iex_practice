@@ -27,15 +27,19 @@ export class SectorPerformance extends React.Component<
     const { sectorPerformance } = this.props;
     return (
       <div>
-        <p>SectorPerformance</p>
-        {sectorPerformance.map(item => {
-          return (
-            <div key={item.sector}>
-              <p>{item.sector}</p>
-              <p>{item.changesPercentage}</p>
-            </div>
-          );
-        })}
+        <div className="section-title">
+          <p>Sector Performance</p>
+        </div>
+        <div className="sector-wrapper">
+          {sectorPerformance.map(item => {
+            return (
+              <div key={item.sector} className="sector-performance-block">
+                <p className="sector-name">{item.sector}</p>
+                <p className="sector-performance">{item.changesPercentage}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

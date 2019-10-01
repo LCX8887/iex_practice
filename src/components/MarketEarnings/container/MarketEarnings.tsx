@@ -22,7 +22,7 @@ export class MarketEarnings extends React.Component<
   };
   render() {
     return (
-      <div>
+      <div className="section-title">
         <p>Market Earnings</p>
       </div>
     );
