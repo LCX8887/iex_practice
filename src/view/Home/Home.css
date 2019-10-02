@@ -41,3 +41,6 @@
   color: #000000;
   text-align: left;
 }
+.ant-table-thead > tr > th {
+  background: #f9f1f1;
+}

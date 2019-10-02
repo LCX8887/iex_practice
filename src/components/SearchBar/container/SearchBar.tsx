@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchSymbols } from "src/components/SearchBar/flow/actions";
 import { State } from "src/types";
 
@@ -54,7 +55,9 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
           dataSource={bestMatches}
           renderItem={item => (
             <List.Item key={item["1. symbol"]}>
-              {item["1. symbol"]}-{item["2. name"]}
+              <Link rel={item.symbol} to={`/stocks/${item["1. symbol"]}`}>
+                {item["1. symbol"]}-{item["2. name"]}
+              </Link>
             </List.Item>
           )}
         />

@@ -47,7 +47,9 @@ export class MajorIndex extends React.Component<
     const { majorIndexesList } = this.props;
     return (
       <div>
-        <p>MajorIndex</p>
+        <div className="section-title">
+          <p>MajorIndex</p>
+        </div>
         <Table columns={columns} dataSource={majorIndexesList} />
       </div>
     );

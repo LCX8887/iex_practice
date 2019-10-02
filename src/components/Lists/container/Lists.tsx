@@ -58,19 +58,28 @@ export class Lists extends React.Component<ListsProps, ListsState> {
     return (
       <div>
         <div>
-          <p>Gainers</p>
+          <div className="section-title">
+            <p>Gainers</p>
+          </div>
           <Table columns={columns} dataSource={gainers} />
         </div>
         <div>
-          <p>Loses</p>
+          <div className="section-title">
+            <p>Losers</p>
+          </div>
           <Table columns={columns} dataSource={losers} />
         </div>
         <div>
-          <p>IEXVolume</p>
+          <div className="section-title">
+            <p>IEXVolume</p>
+          </div>
+
           <Table columns={columns} dataSource={iexVolume} />
         </div>
         <div>
-          <p>IEXPercent</p>
+          <div className="section-title">
+            <p>IEXPercent</p>
+          </div>
           <Table columns={columns} dataSource={iexPercent} />
         </div>
       </div>
