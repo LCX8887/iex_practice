@@ -27,9 +27,6 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
       hideList: true
     };
   }
-  // componentDidMount = () => {
-  //   this.props.fetchSymbols();
-  // };
 
   handleInputChange = (e: any) => {
     const { value } = e.target;

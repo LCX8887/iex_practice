@@ -55,3 +55,17 @@ body {
 .visible {
   display: block;
 }
+a {
+  color: #000000;
+}
+p {
+  color: #000000;
+}
+.ant-layout.app_layout,
+.ant-layout.home_layout,
+.ant-layout-sider.home_sider {
+  background: transparent;
+}
+.app_footer.ant-layout-footer {
+  text-align: center;
+}

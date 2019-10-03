@@ -3,11 +3,6 @@ import { connect } from "react-redux";
 import { State } from "src/types";
 
 export interface StockDetailsProps {
-  fetchStockDetails: any;
-  StockDetails: Array<{
-    sector: string;
-    changesPercentage: string;
-  }>;
   selectedSymbol: string;
 }
 
@@ -24,11 +19,11 @@ export class StockDetails extends React.Component<
   //     this.props.fetchStockDetails();
   //   };
   render() {
-    //const { StockDetails } = this.props;
+    const { selectedSymbol } = this.props;
     return (
       <div>
         <div className="section-title">
-          <p>Stock Details</p>
+          <p>Stock Details {selectedSymbol}</p>
         </div>
       </div>
     );

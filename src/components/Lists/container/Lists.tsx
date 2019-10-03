@@ -1,6 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Table } from "antd";
+import { ColumnProps } from "antd/es/table";
+//import { Link } from "react-router-dom";
 import {
   fetchGainers,
   fetchLosers,
@@ -20,11 +22,23 @@ export interface ListsProps {
   iexPercent: Array<{}>;
 }
 export interface ListsState {}
-const columns = [
+export interface Symbol {
+  title: string;
+  dataIndex: string;
+  key: string;
+  render: any;
+}
+
+const columns: ColumnProps<Symbol>[] = [
   {
     title: "Symbol",
     dataIndex: "symbol",
     key: "symbol"
+    // render: (text: string) => {
+    //   <Link rel={text} to={`/stocks/${text}`}>
+    //     {text}
+    //   </Link>;
+    // }
   },
   {
     title: "Company Name",
@@ -73,7 +87,6 @@ export class Lists extends React.Component<ListsProps, ListsState> {
           <div className="section-title">
             <p>IEXVolume</p>
           </div>
-
           <Table columns={columns} dataSource={iexVolume} />
         </div>
         <div>

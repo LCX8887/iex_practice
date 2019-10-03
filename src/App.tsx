@@ -4,11 +4,11 @@ import "antd/dist/antd.css";
 import { Home, SymbolDetails } from "./view/index";
 import { Layout } from "antd";
 import { Route, Switch, HashRouter } from "react-router-dom";
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 
 class App extends React.Component {
   public render() {
-    const header = <div></div>;
+    //const header = <div></div>;
     const content = (
       <Switch>
         <Route exact path="/stocks/:selectedSymbol" component={SymbolDetails} />
@@ -34,10 +34,10 @@ class App extends React.Component {
 
     return (
       <HashRouter>
-        <Layout className="App">
-          <Header className="AppHeader">{header}</Header>
-          <Content className="AppContent">{content}</Content>
-          <Footer className="AppFooter">{footer}</Footer>
+        <Layout className="app_layout">
+          {/* <Header className="AppHeader">{header}</Header> */}
+          <Content className="app_content">{content}</Content>
+          <Footer className="app_footer">{footer}</Footer>
         </Layout>
       </HashRouter>
     );
