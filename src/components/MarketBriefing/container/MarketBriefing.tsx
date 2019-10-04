@@ -1,14 +1,15 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { fetchMostActive } from '../flow/actions';
-import { State } from 'src/types';
-import { Link } from 'react-router-dom';
-import { Icon } from 'antd';
-import { addWatchList } from 'src/store/global/actions';
+import * as React from "react";
+import { connect } from "react-redux";
+import { fetchMostActive } from "../flow/actions";
+import { State } from "src/types";
+import { Link } from "react-router-dom";
+import { Icon } from "antd";
+import { addWatchList, deleteWatchList } from "src/store/global/actions";
 
 export interface MarketBriefingProps {
   fetchMostActive: any;
   addWatchList: any;
+  deleteWatchList: any;
   mostActiveStock: Array<{
     ticker: string;
     changes: string;
@@ -16,6 +17,7 @@ export interface MarketBriefingProps {
     changesPercentage: string;
     companyName: string;
   }>;
+  myWatchList: Array<string>;
 }
 export interface MarketBriefingState {}
 
@@ -31,34 +33,49 @@ export class MarketBriefing extends React.Component<
     this.props.fetchMostActive();
   }
   static defaultProps = {
-    mostActiveStock: [],
+    mostActiveStock: []
   };
   handleChangeWatchList = (symbol: string) => {
-    this.props.addWatchList(symbol);
+    if (this.props.myWatchList.indexOf(symbol) == -1) {
+      this.props.addWatchList(symbol);
+    } else {
+      this.props.deleteWatchList(symbol);
+    }
   };
   render() {
-    const { mostActiveStock } = this.props;
+    const { mostActiveStock, myWatchList } = this.props;
     return (
       <div className="market_briefing">
         <div className="section-title">
           <p>Market Briefing</p>
         </div>
-        {mostActiveStock.map((item) => {
+        {mostActiveStock.map(item => {
+          let symbol = item.ticker;
+          let companyName = item.companyName;
+          let price = item.price;
+          let changesPercentage = item.changesPercentage;
+          let star =
+            myWatchList.indexOf(symbol) == -1 ? (
+              <Icon type="star" theme="outlined" />
+            ) : (
+              <Icon type="star" theme="filled" />
+            );
+
           return (
-            <div key={item.ticker} className="briefing-block">
-              <div onClick={() => this.handleChangeWatchList(item.ticker)}>
-                <Icon type="star" theme="outlined" />
+            <div key={symbol} className="briefing-block">
+              <div onClick={() => this.handleChangeWatchList(symbol)}>
+                {star}
               </div>
 
-              <Link rel={item.ticker} to={`/stocks/${item.ticker}`}>
+              <Link rel={symbol} to={`/stocks/${symbol}`}>
                 <div className="briefing-name">
-                  <p>{item.ticker}</p>
-                  <p>{item.companyName}</p>
+                  <p>{symbol}</p>
+                  <p>{companyName}</p>
                 </div>
               </Link>
               <div className="briefing-performance">
-                <p>{item.price}</p>
-                <p>{item.changesPercentage}</p>
+                <p>{price}</p>
+                <p>{changesPercentage}</p>
               </div>
             </div>
           );
@@ -69,11 +86,13 @@ export class MarketBriefing extends React.Component<
 }
 const mapStateToProps = (state: State) => ({
   mostActiveStock: state.MarketBriefingReducer.mostActive.mostActiveStock,
+  myWatchList: state.global.myWatchList
 });
 
 const mapDispatchToProps = {
   fetchMostActive,
   addWatchList,
+  deleteWatchList
 };
 
 export const ConnectedMarketBriefing = connect(

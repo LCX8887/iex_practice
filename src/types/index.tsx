@@ -31,4 +31,8 @@ export interface State {
     majorIndex: { majorIndexesList: Array<{}> };
     isFetching: boolean;
   };
+  WatchListReducer: {
+    myWatchListDetails: {};
+    isFetching: boolean;
+  };
 }

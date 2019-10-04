@@ -1,9 +1,11 @@
-import * as React from 'react';
-import { State } from 'src/types';
-import { connect } from 'react-redux';
+import * as React from "react";
+import { State } from "src/types";
+import { connect } from "react-redux";
+import { fetchWatchListDetails } from "../flow/actions";
 
 export interface WatchListProps {
   myWatchList: Array<string>;
+  fetchWatchListDetails: any;
 }
 export interface WatchListState {}
 export class WatchList extends React.Component<WatchListProps, WatchListState> {
@@ -11,13 +13,15 @@ export class WatchList extends React.Component<WatchListProps, WatchListState> {
     super(props);
     this.state = {};
   }
-
+  componentDidMount() {
+    this.props.fetchWatchListDetails(this.props.myWatchList.join());
+  }
   render() {
     const { myWatchList } = this.props;
     return (
       <div>
         <ul>
-          {myWatchList.map((item) => (
+          {myWatchList.map(item => (
             <li>{item}</li>
           ))}
         </ul>
@@ -27,8 +31,11 @@ export class WatchList extends React.Component<WatchListProps, WatchListState> {
 }
 const mapStateToProps = (state: State) => ({
   myWatchList: state.global.myWatchList,
+  myWatchListDetails: state.WatchListReducer.myWatchListDetails
 });
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  fetchWatchListDetails
+};
 export const ConnectedWatchList = connect(
   mapStateToProps,
   mapDispatchToProps

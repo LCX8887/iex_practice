@@ -4,12 +4,13 @@ import MarketEarningsReducer from "../components/MarketEarnings/flow/reducer";
 import SectorPerformanceReducer from "../components/SectorPerformance/flow/reducer";
 import ListsReducer from "../components/Lists/flow/reducer";
 import MajorIndexReducer from "../components/MajorIndex/flow/reducer";
-
+import WatchListReducer from "../components/WatchList/flow/reducer";
 export default {
   SearchBarReducer,
   MarketBriefingReducer,
   MarketEarningsReducer,
   SectorPerformanceReducer,
   ListsReducer,
-  MajorIndexReducer
+  MajorIndexReducer,
+  WatchListReducer
 };
