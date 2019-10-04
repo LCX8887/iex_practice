@@ -1,15 +1,15 @@
-import * as React from "react";
-import { connect } from "react-redux";
-import { Table } from "antd";
-import { ColumnProps } from "antd/es/table";
-//import { Link } from "react-router-dom";
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Table } from 'antd';
+import { ColumnProps } from 'antd/es/table';
+import { Link } from 'react-router-dom';
 import {
   fetchGainers,
   fetchLosers,
   fetchIEXVolume,
-  fetchIEXPercent
-} from "../flow/actions";
-import { State } from "src/types";
+  fetchIEXPercent,
+} from '../flow/actions';
+import { State } from 'src/types';
 
 export interface ListsProps {
   fetchGainers: any;
@@ -31,30 +31,30 @@ export interface Symbol {
 
 const columns: ColumnProps<Symbol>[] = [
   {
-    title: "Symbol",
-    dataIndex: "symbol",
-    key: "symbol"
-    // render: (text: string) => {
-    //   <Link rel={text} to={`/stocks/${text}`}>
-    //     {text}
-    //   </Link>;
-    // }
+    title: 'Symbol',
+    dataIndex: 'symbol',
+    key: 'symbol',
+    render: (text: string) => (
+      <Link rel={text} to={`/stocks/${text}`}>
+        {text}
+      </Link>
+    ),
   },
   {
-    title: "Company Name",
-    dataIndex: "companyName",
-    key: "companyName"
+    title: 'Company Name',
+    dataIndex: 'companyName',
+    key: 'companyName',
   },
   {
-    title: "Volume",
-    dataIndex: "volume",
-    key: "volume"
+    title: 'Volume',
+    dataIndex: 'volume',
+    key: 'volume',
   },
   {
-    title: "Price",
-    dataIndex: "latestPrice",
-    key: "latestPrice"
-  }
+    title: 'Price',
+    dataIndex: 'latestPrice',
+    key: 'latestPrice',
+  },
 ];
 export class Lists extends React.Component<ListsProps, ListsState> {
   constructor(props: ListsProps) {
@@ -103,14 +103,14 @@ const mapStateToProps = (state: State) => ({
   gainers: state.ListsReducer.gainers,
   losers: state.ListsReducer.losers,
   iexVolume: state.ListsReducer.iexVolume,
-  iexPercent: state.ListsReducer.iexPercent
+  iexPercent: state.ListsReducer.iexPercent,
 });
 
 const mapDispatchToProps = {
   fetchGainers,
   fetchLosers,
   fetchIEXVolume,
-  fetchIEXPercent
+  fetchIEXPercent,
 };
 
 export const ConnectedLists = connect(

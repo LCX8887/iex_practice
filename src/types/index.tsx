@@ -4,6 +4,9 @@ export interface Action {
 }
 
 export interface State {
+  global: {
+    myWatchList: Array<string>;
+  };
   SearchBarReducer: {
     symbols: { bestMatches: Array<{}> };
     isFetching: boolean;

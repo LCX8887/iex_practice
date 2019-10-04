@@ -1,8 +1,8 @@
-import * as React from "react";
-import { connect } from "react-redux";
-import { fetchMajorIndex } from "../flow/actions";
-import { State } from "src/types";
-import { Table } from "antd";
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { fetchMajorIndex } from '../flow/actions';
+import { State } from 'src/types';
+import { Table } from 'antd';
 
 export interface MajorIndexProps {
   fetchMajorIndex: any;
@@ -11,25 +11,25 @@ export interface MajorIndexProps {
 export interface MajorIndexState {}
 const columns = [
   {
-    title: "Index",
-    dataIndex: "ticker",
-    key: "ticker"
+    title: 'Index',
+    dataIndex: 'ticker',
+    key: 'ticker',
   },
   {
-    title: "Index Name",
-    dataIndex: "indexName",
-    key: "indexName"
+    title: 'Index Name',
+    dataIndex: 'indexName',
+    key: 'indexName',
   },
   {
-    title: "Price",
-    dataIndex: "price",
-    key: "price"
+    title: 'Price',
+    dataIndex: 'price',
+    key: 'price',
   },
   {
-    title: "Changes",
-    dataIndex: "changes",
-    key: "changes"
-  }
+    title: 'Changes',
+    dataIndex: 'changes',
+    key: 'changes',
+  },
 ];
 
 export class MajorIndex extends React.Component<
@@ -48,7 +48,7 @@ export class MajorIndex extends React.Component<
     return (
       <div>
         <div className="section-title">
-          <p>MajorIndex</p>
+          <p>Major Index</p>
         </div>
         <Table columns={columns} dataSource={majorIndexesList} />
       </div>
@@ -56,11 +56,11 @@ export class MajorIndex extends React.Component<
   }
 }
 const mapStateToProps = (state: State) => ({
-  majorIndexesList: state.MajorIndexReducer.majorIndex.majorIndexesList
+  majorIndexesList: state.MajorIndexReducer.majorIndex.majorIndexesList,
 });
 
 const mapDispatchToProps = {
-  fetchMajorIndex
+  fetchMajorIndex,
 };
 
 export const ConnectedMajorIndex = connect(
