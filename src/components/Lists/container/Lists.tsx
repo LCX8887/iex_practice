@@ -22,14 +22,14 @@ export interface ListsProps {
   iexPercent: Array<{}>;
 }
 export interface ListsState {}
-export interface Symbol {
+export interface SymbolType {
   title: string;
   dataIndex: string;
   key: string;
   render: any;
 }
 
-const columns: ColumnProps<Symbol>[] = [
+const columns: ColumnProps<SymbolType>[] = [
   {
     title: 'Symbol',
     dataIndex: 'symbol',

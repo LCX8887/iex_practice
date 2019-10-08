@@ -28,7 +28,7 @@ export const Home = () => (
         <SectorPerformance />
         <Lists />
       </Content>
-      <Sider className="home_sider">
+      <Sider className="home_sider" width="25%">
         <WatchList />
       </Sider>
     </Layout>
