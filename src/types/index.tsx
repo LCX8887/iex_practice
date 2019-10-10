@@ -35,4 +35,8 @@ export interface State {
     myWatchListDetails: {};
     isFetching: boolean;
   };
+  StockDetailsReducer: {
+    stockDetails: {};
+    isFetching: boolean;
+  };
 }

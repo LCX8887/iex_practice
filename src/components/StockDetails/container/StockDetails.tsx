@@ -1,8 +1,19 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "src/types";
+import { fetchStockDetails } from "../flow/actions";
+import {
+  CustomizePeers,
+  PeersTable,
+  StockChart,
+  StockHeader,
+  StockHeaderBoard,
+  StockPeers,
+  StockProfile
+} from "../component/index";
 
 export interface StockDetailsProps {
+  fetchStockDetails: (props: string) => {};
   selectedSymbol: string;
 }
 
@@ -15,9 +26,9 @@ export class StockDetails extends React.Component<
     super(props);
     this.state = {};
   }
-  //   componentDidMount = () => {
-  //     this.props.fetchStockDetails();
-  //   };
+  componentDidMount = () => {
+    this.props.fetchStockDetails(this.props.selectedSymbol);
+  };
   render() {
     const { selectedSymbol } = this.props;
     return (
@@ -30,11 +41,11 @@ export class StockDetails extends React.Component<
   }
 }
 const mapStateToProps = (state: State) => ({
-  //StockDetails: state.StockDetailsReducer.StockDetails
+  stockDetails: state.StockDetailsReducer.stockDetails
 });
 
 const mapDispatchToProps = {
-  //fetchStockDetails
+  fetchStockDetails
 };
 
 export const ConnectedStockDetails = connect(

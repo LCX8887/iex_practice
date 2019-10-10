@@ -5,6 +5,7 @@ import SectorPerformanceReducer from "../components/SectorPerformance/flow/reduc
 import ListsReducer from "../components/Lists/flow/reducer";
 import MajorIndexReducer from "../components/MajorIndex/flow/reducer";
 import WatchListReducer from "../components/WatchList/flow/reducer";
+import StockDetailsReducer from "../components/StockDetails/flow/reducer";
 export default {
   SearchBarReducer,
   MarketBriefingReducer,
@@ -12,5 +13,6 @@ export default {
   SectorPerformanceReducer,
   ListsReducer,
   MajorIndexReducer,
-  WatchListReducer
+  WatchListReducer,
+  StockDetailsReducer
 };
