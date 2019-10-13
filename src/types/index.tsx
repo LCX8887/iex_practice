@@ -36,7 +36,9 @@ export interface State {
     isFetching: boolean;
   };
   StockDetailsReducer: {
-    stockDetails: {};
+    quote: {};
+    news: Array<any>;
+    chart: Array<{}>;
     isFetching: boolean;
   };
 }

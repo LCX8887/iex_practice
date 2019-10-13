@@ -1,11 +1,11 @@
-import * as React from "react";
-import { State } from "src/types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchWatchListDetails } from "../flow/actions";
-import { deleteWatchList } from "src/store/global/actions";
-import { Action } from "src/types";
-import { Table, Icon } from "antd";
+import * as React from 'react';
+import { State } from 'src/types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchWatchListDetails } from '../flow/actions';
+import { deleteWatchList } from 'src/store/global/actions';
+import { Action } from 'src/types';
+import { Table, Icon } from 'antd';
 
 export interface DetailsType {
   title: string;
@@ -18,10 +18,10 @@ export interface DetailsType {
 const getColumns = (action: (props: string) => Action) => {
   return [
     {
-      title: "",
-      dataIndex: "symbol",
-      key: "button",
-      width: "5%",
+      title: '',
+      dataIndex: 'symbol',
+      key: 'button',
+      width: '5%',
       render: (text: string) => {
         return (
           <button
@@ -32,13 +32,13 @@ const getColumns = (action: (props: string) => Action) => {
             <Icon type="star" theme="filled" />
           </button>
         );
-      }
+      },
     },
     {
-      title: "Name",
-      dataIndex: "companyName",
-      key: "companyName",
-      width: "45%",
+      title: 'Name',
+      dataIndex: 'companyName',
+      key: 'companyName',
+      width: '45%',
       render: (text: string) => {
         return (
           <Link to={`/stocks/${text}`}>
@@ -47,21 +47,21 @@ const getColumns = (action: (props: string) => Action) => {
             </div>
           </Link>
         );
-      }
+      },
     },
     {
-      title: "Change",
-      dataIndex: "changePercent",
-      key: "changePercent",
-      width: "25%",
-      render: (text: number) => (text * 100).toFixed(2) + "%"
+      title: 'Change',
+      dataIndex: 'changePercent',
+      key: 'changePercent',
+      width: '25%',
+      render: (text: number) => (text * 100).toFixed(2) + '%',
     },
     {
-      title: "Price",
-      dataIndex: "latestPrice",
-      key: "latestPrice",
-      width: "35%"
-    }
+      title: 'Price',
+      dataIndex: 'latestPrice',
+      key: 'latestPrice',
+      width: '35%',
+    },
   ];
 };
 
@@ -136,11 +136,11 @@ export class WatchList extends React.Component<WatchListProps, WatchListState> {
 }
 const mapStateToProps = (state: State) => ({
   myWatchList: state.global.myWatchList,
-  myWatchListDetails: state.WatchListReducer.myWatchListDetails
+  myWatchListDetails: state.WatchListReducer.myWatchListDetails,
 });
 const mapDispatchToProps = {
   fetchWatchListDetails,
-  deleteWatchList
+  deleteWatchList,
 };
 export const ConnectedWatchList = connect(
   mapStateToProps,

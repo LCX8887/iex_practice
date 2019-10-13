@@ -1,10 +1,16 @@
-import { RECEIVE_STOCK_DETAILS, REQUEST_STOCK_DETAILS } from "./actionTypes";
+import {
+  RECEIVE_STOCK_DETAILS,
+  REQUEST_STOCK_DETAILS,
+  RECEIVE_CHART,
+} from './actionTypes';
 
-import { Action } from "src/types";
+import { Action } from 'src/types';
 
 const initialState = {
-  stockDetails: {},
-  isFetching: false
+  quote: {},
+  news: [],
+  chart: [],
+  isFetching: false,
 };
 
 const StockDetailsReducer = (state = initialState, action: Action) => {
@@ -12,13 +18,20 @@ const StockDetailsReducer = (state = initialState, action: Action) => {
     case REQUEST_STOCK_DETAILS:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case RECEIVE_STOCK_DETAILS:
       return {
         ...state,
         isFetching: false,
-        stockDetails: action.payload
+        quote: action.payload.quote,
+        news: action.payload.news,
+        chart: action.payload.chart,
+      };
+    case RECEIVE_CHART:
+      return {
+        ...state,
+        chart: action.payload,
       };
     default:
       return state;

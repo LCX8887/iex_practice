@@ -32,21 +32,3 @@
 .search_bar input:focus {
   outline: none;
 }
-.sections {
-  padding: 0 5%;
-}
-.section-title {
-  font-family: 'Poppins-SemiBold';
-  font-size: 4rem;
-  color: #000000;
-  text-align: left;
-}
-.section-title-small {
-  font-family: 'Poppins-SemiBold';
-  font-size: 2rem;
-  color: #000000;
-  text-align: left;
-}
-.ant-table-thead > tr > th {
-  background: #f9f1f1;
-}
