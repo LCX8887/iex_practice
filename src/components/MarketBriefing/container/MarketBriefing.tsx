@@ -5,6 +5,7 @@ import { State } from "src/types";
 import { Link } from "react-router-dom";
 import { Icon } from "antd";
 import { addWatchList, deleteWatchList } from "src/store/global/actions";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export interface MarketBriefingProps {
   fetchMostActive: any;
@@ -20,6 +21,14 @@ export interface MarketBriefingProps {
   myWatchList: Array<string>;
 }
 export interface MarketBriefingState {}
+
+const reorder = (list: Array<any>, startIndex: number, endIndex: number) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
 
 export class MarketBriefing extends React.Component<
   MarketBriefingProps,
@@ -42,6 +51,22 @@ export class MarketBriefing extends React.Component<
       this.props.deleteWatchList(symbol);
     }
   };
+  onDragEnd = (result: any) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const items = reorder(
+      this.props.mostActiveStock,
+      result.source.index,
+      result.destination.index
+    );
+
+    this.setState({
+      items
+    });
+  };
   render() {
     const { mostActiveStock, myWatchList } = this.props;
     return (
@@ -49,37 +74,43 @@ export class MarketBriefing extends React.Component<
         <div className="section-title">
           <p>Market Briefing</p>
         </div>
-        {mostActiveStock.map(item => {
-          let symbol = item.ticker;
-          let companyName = item.companyName;
-          let price = item.price;
-          let changesPercentage = item.changesPercentage;
-          let star =
-            myWatchList.indexOf(symbol) == -1 ? (
-              <Icon type="star" theme="outlined" />
-            ) : (
-              <Icon type="star" theme="filled" />
-            );
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable droppableId="droppable">
+            {mostActiveStock.map(item => {
+              let symbol = item.ticker;
+              let companyName = item.companyName;
+              let price = item.price;
+              let changesPercentage = item.changesPercentage;
+              let star =
+                myWatchList.indexOf(symbol) == -1 ? (
+                  <Icon type="star" theme="outlined" />
+                ) : (
+                  <Icon type="star" theme="filled" />
+                );
 
-          return (
-            <div key={symbol} className="briefing-block">
-              <div onClick={() => this.handleChangeWatchList(symbol)}>
-                {star}
-              </div>
+              return (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  <div key={symbol} className="briefing-block">
+                    <div onClick={() => this.handleChangeWatchList(symbol)}>
+                      {star}
+                    </div>
 
-              <Link rel={symbol} to={`/stocks/${symbol}`}>
-                <div className="briefing-name">
-                  <p>{symbol}</p>
-                  <p>{companyName}</p>
-                </div>
-              </Link>
-              <div className="briefing-performance">
-                <p>{price}</p>
-                <p>{changesPercentage}</p>
-              </div>
-            </div>
-          );
-        })}
+                    <Link rel={symbol} to={`/stocks/${symbol}`}>
+                      <div className="briefing-name">
+                        <p>{symbol}</p>
+                        <p>{companyName}</p>
+                      </div>
+                    </Link>
+                    <div className="briefing-performance">
+                      <p>{price}</p>
+                      <p>{changesPercentage}</p>
+                    </div>
+                  </div>
+                </Draggable>
+              );
+            })}
+          </Droppable>
+        </DragDropContext>
       </div>
     );
   }

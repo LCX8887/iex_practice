@@ -1,9 +1,14 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { State } from 'src/types';
-import { fetchStockDetails, fetchChart } from '../flow/actions';
-import { addWatchList, deleteWatchList } from 'src/store/global/actions';
-import { StockHeader, StockChart } from '../component/index';
+import * as React from "react";
+import { connect } from "react-redux";
+import { State } from "src/types";
+import { fetchStockDetails, fetchChart } from "../flow/actions";
+import { addWatchList, deleteWatchList } from "src/store/global/actions";
+import {
+  StockHeader,
+  StockChart,
+  StockProfile,
+  StockNews
+} from "../component/index";
 
 // interface SyntheticEvent {
 //   bubbles: boolean;
@@ -19,19 +24,19 @@ import { StockHeader, StockChart } from '../component/index';
 //   timeStamp: Date;
 //   type: string;
 // }
-interface EventTarget {
-  addEventListener(
-    type: string,
-    listener: EventListenerOrEventListenerObject,
-    useCapture?: boolean
-  ): void;
-  dispatchEvent(evt: Event): boolean;
-  removeEventListener(
-    type: string,
-    listener: EventListenerOrEventListenerObject,
-    useCapture?: boolean
-  ): void;
-}
+// interface EventTarget {
+//   addEventListener(
+//     type: string,
+//     listener: EventListenerOrEventListenerObject,
+//     useCapture?: boolean
+//   ): void;
+//   dispatchEvent(evt: Event): boolean;
+//   removeEventListener(
+//     type: string,
+//     listener: EventListenerOrEventListenerObject,
+//     useCapture?: boolean
+//   ): void;
+// }
 export interface QuoteType {
   symbol: string;
   change: number;
@@ -53,9 +58,28 @@ export interface ChartType {
   high: number;
   low: number;
 }
-
+export interface CompanyType {
+  CEO: string;
+  exchange: string;
+  industry: string;
+  sector: string;
+  website: string;
+  tags: Array<string>;
+  description: string;
+}
+export interface NewsType {
+  datetime: number;
+  hasPaywall: boolean;
+  headline: string;
+  image: string;
+  lang: string;
+  related: string;
+  source: string;
+  summary: string;
+  url: string;
+}
 export interface StockDetailsProps {
-  fetchStockDetails: (props: string) => {};
+  fetchStockDetails: any;
   selectedSymbol: string;
   myWatchList: Array<string>;
   addWatchList: any;
@@ -63,7 +87,8 @@ export interface StockDetailsProps {
   fetchChart: any;
   quote: QuoteType;
   chart: Array<ChartType>;
-  news: Array<{}>;
+  news: Array<NewsType>;
+  company: CompanyType;
 }
 
 export interface StockDetailsState {
@@ -77,12 +102,15 @@ export class StockDetails extends React.Component<
   constructor(props: StockDetailsProps) {
     super(props);
     this.state = {
-      chartRange: ['1D', '1M', '3M', '6M', 'YTD', '1Y', '2Y', '5Y'],
-      selectedRange: '1D',
+      chartRange: ["1D", "1M", "3M", "6M", "YTD", "1Y", "2Y", "5Y"],
+      selectedRange: "1D"
     };
   }
   componentDidMount = () => {
-    this.props.fetchStockDetails(this.props.selectedSymbol);
+    this.props.fetchStockDetails(
+      this.props.selectedSymbol,
+      this.state.selectedRange
+    );
   };
   handleChangeWatchList = (symbol: string) => {
     if (this.props.myWatchList.indexOf(symbol) == -1) {
@@ -91,15 +119,15 @@ export class StockDetails extends React.Component<
       this.props.deleteWatchList(symbol);
     }
   };
-  handleChartChange = (e: React.SyntheticEvent<EventTarget>) => {
+  handleChartChange = (e: React.SyntheticEvent<any>) => {
     let target = e.target as HTMLInputElement;
     this.setState({
-      selectedRange: target.value,
+      selectedRange: target.value
     });
     this.props.fetchChart(this.props.selectedSymbol, target.value);
   };
   render() {
-    const { quote, myWatchList, chart } = this.props;
+    const { quote, myWatchList, chart, company, news } = this.props;
     return (
       <div>
         <StockHeader
@@ -113,6 +141,8 @@ export class StockDetails extends React.Component<
           chartRange={this.state.chartRange}
           handleChartChange={this.handleChartChange}
         />
+        <StockProfile company={company} quote={quote} />
+        <StockNews news={news} />
       </div>
     );
   }
@@ -121,14 +151,15 @@ const mapStateToProps = (state: State) => ({
   quote: state.StockDetailsReducer.quote,
   chart: state.StockDetailsReducer.chart,
   news: state.StockDetailsReducer.news,
-  myWatchList: state.global.myWatchList,
+  company: state.StockDetailsReducer.company,
+  myWatchList: state.global.myWatchList
 });
 
 const mapDispatchToProps = {
   fetchStockDetails,
   addWatchList,
   deleteWatchList,
-  fetchChart,
+  fetchChart
 };
 
 export const ConnectedStockDetails = connect(

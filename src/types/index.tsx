@@ -39,6 +39,7 @@ export interface State {
     quote: {};
     news: Array<any>;
     chart: Array<{}>;
+    company: {};
     isFetching: boolean;
   };
 }
