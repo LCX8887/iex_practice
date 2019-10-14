@@ -1,20 +1,24 @@
-import * as React from "react";
-import { NewsType } from "../container/StockDetails";
-import { Row, Col } from "antd";
+import * as React from 'react';
+import { NewsType } from '../container/StockDetails';
+import { Row, Col } from 'antd';
 
 export interface StockNewsProps {
   news: Array<NewsType>;
 }
 
-export const StockNews: React.SFC<StockNewsProps> = props => {
+export const StockNews: React.SFC<StockNewsProps> = (props) => {
   return (
     <div className="stock-news stock-details-section">
       <p className="section-title">News</p>
-      {props.news.map(item => {
+      {props.news.map((item) => {
         const datetime = new Date(item.datetime);
         const imageStyle = {
-          backgroundImage: `url(${item.image})`
+          backgroundImage: `url(${item.image})`,
         };
+        const summary =
+          item.summary.length < 200
+            ? item.summary
+            : item.summary.substring(0, 200) + '...';
         return (
           <Row
             key={item.url}
@@ -34,7 +38,7 @@ export const StockNews: React.SFC<StockNewsProps> = props => {
               <div>
                 <a href={item.url}>
                   <p className="content-2">{item.headline}</p>
-                  <p>{item.summary}</p>
+                  <p>{summary}</p>
                   <p>
                     Related:
                     <span className="news-related-tag">{item.related}</span>
